@@ -1,0 +1,23 @@
+{
+  "sourceMaps": true,
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 chrome versions"
+          ]
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ]
+  ]
+}

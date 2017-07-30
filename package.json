@@ -1,0 +1,39 @@
+{
+  "name": "huozi.js",
+  "version": "1.0.0",
+  "description": "A simple typography engine for CJK languages, especially designed for game rich-text.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack.config.example.js --hot --host 0.0.0.0 --port 8000 --devtool source-map",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Icemic/huozi.js.git"
+  },
+  "keywords": [
+    "typography",
+    "wordwrap",
+    "rich-text",
+    "CJK",
+    "chinese",
+    "japanese",
+    "korean",
+    "canvas",
+    "game"
+  ],
+  "author": "Icemic Jia <bingfeng.web@gmail.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/Icemic/huozi.js/issues"
+  },
+  "homepage": "https://github.com/Icemic/huozi.js#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.3"
+  }
+}
