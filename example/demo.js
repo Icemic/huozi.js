@@ -31,5 +31,5 @@ for (const char of layoutSequence) {
   context.textBaseline = 'hanging';
   context.fillText(char.character, char.x, char.y);
 
-  // context.strokeRect(char.x, char.y, char.width, char.height);
+  context.strokeRect(char.x, char.y, char.width, char.height);
 }
