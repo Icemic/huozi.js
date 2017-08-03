@@ -89,6 +89,33 @@ for (const char of layoutSequence) {
 }]
 ```
 
+参数详解：
+
+```js
+function huozi(textSequence, layoutOptions = {
+  // 排版用字号（即一个em多宽，与 textSequence 中的 fontSize 不同）
+  fontSize: 26,
+  // 每行字数
+  column: 25,
+  // 行数
+  row: Infinity,
+  // 字距（仅 CJK 文字）
+  xInterval: 0,
+  // 行距
+  yInterval: 12,
+  // 字符间距（仅西文文字）
+  letterSpacing: 0,
+  // 开启行内标点压缩
+  inlineCompression: true,
+  // 强制纵横对齐
+  forceGridAlignment: true,
+  // 西文优先
+  westernCharacterFirst: false,
+  // 若纵横对齐导致无空格间隔，则强制在两边加入至少 1/4em 宽空格
+  forceSpaceBetweenCJKAndWestern: false
+})
+```
+
 ## 参与项目
 
 欢迎任何 Issue 和 Pull Request！

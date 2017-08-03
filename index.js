@@ -24,7 +24,7 @@ import { isCJK } from './lib/isCJK';
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 
-export default function huozi(textSequence, layoutOptions = {
+const defaultOptions = {
   fontSize: 26,
   column: 25,
   row: Infinity,
@@ -35,7 +35,11 @@ export default function huozi(textSequence, layoutOptions = {
   forceGridAlignment: true,
   westernCharacterFirst: false,
   forceSpaceBetweenCJKAndWestern: false
-}) {
+};
+
+export default function huozi(textSequence, layoutOptions) {
+
+  layoutOptions = Object.assign({}, defaultOptions, layoutOptions);
 
   const {
     fontSize,

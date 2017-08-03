@@ -6,6 +6,7 @@ module.exports = {
   entry: "./example/demo.js",
   output: {
     path: path.resolve(__dirname, './example-dist'),
+    publicPath:"/example-dist/",
     filename: "demo.js",
     libraryTarget: 'umd'
   },
@@ -21,7 +22,7 @@ module.exports = {
     // new webpack.BannerPlugin(fs.readFileSync('./LICENSE.txt', 'utf8')),
   ],
   devServer: {
-    contentBase: './example/',
+    contentBase: './',
     historyApiFallback: true,
     disableHostCheck: true,
     hot: true,

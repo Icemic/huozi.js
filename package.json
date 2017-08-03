@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.example.js --hot --host 0.0.0.0 --port 8000 --devtool source-map",
+    "publish-demo": "webpack --config webpack.config.example.js -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

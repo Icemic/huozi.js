@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cmn">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>测试文字</title>
+  <style>
+    * {
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #app {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 790px;
+      padding: 20px;
+      box-shadow: 0 0 5px 0px;
+    }
+  </style>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <h1 align="center" style="font-family: STSong, SimSun, serif; border: none; font-size: 48px; margin-bottom: 0;">
+    <ruby>活
+      <rt>huó</rt>字
+      <rt>zì</rt>
+    </ruby>
+  </h1>
+  <h3 align="center" style="font-family: 'PingFang SC', 'Microsoft Yahei', sans-serif; font-style: normal; font-weight: 400;">
+    <ruby>一个简单的中日韩文字排印引擎，为游戏富文本特别设计。
+      <rt>A simple typography engine for CJK languages, especially designed for game rich-text.</rt>
+    </ruby>
+  </h3>
+
+  <hr>
+  <div class="container" style="margin-bottom: 50px;">
+    <form id="form" style="max-width: 790px; margin: auto;">
+      <div class="form-group">
+        <label>文本：</label>
+        <textarea id="textBox" name="text" class="form-control" rows="3"></textarea>
+      </div>
+      <div class="form-group form-inline">
+        <div class="dropdown" style="display: inline-block;">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="true">
+            使用预设文本
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#" onclick="fillTextArea(1)">《背影》</a></li>
+            <li><a href="#" onclick="fillTextArea(2)">Lorem ipsum</a></li>
+            <li><a href="#" onclick="fillTextArea(3)">混排</a></li>
+          </ul>
+        </div>
+        <label>文本字号：</label>
+        <input name="charFontSize" type="number" class="form-control" min="12" step="2" max="96" value="18">
+        <label>排版字号：</label>
+        <input name="fontSize" type="number" class="form-control" min="12" step="2" max="96" value="18">
+        <label>每行字数：</label>
+        <input name="column" type="number" class="form-control" min="1" step="1" max="30" value="35">
+        <div class="checkbox">
+          <label>
+          <input type="checkbox" name="stroke"> 显示边框
+        </label>
+          <label>
+          <input type="checkbox" name="compress" checked> 标点压缩
+        </label>
+        </div>
+      </div>
+    </form>
+    <canvas width="750" height="400" id="app"></canvas>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <script src="./example-dist/demo.js"></script>
+</body>
+
+</html>
