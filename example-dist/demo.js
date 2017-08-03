@@ -86,8 +86,8 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const beiying = exports.beiying = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 我与父亲Lorem elit不相见已二年余了，我最不能忘记的是他的背影。那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子，我从北京到徐州，打算跟着父亲奔丧回家。到徐州见着父亲，看见满院狼藉的东西，又想起祖母，不禁簌簌地流下眼泪。父亲说，“事已如此，不必难过，好在天无绝人之路！”
-　　回家变卖典质，父亲还←⿰了亏空；又借钱办了丧事。这些日子，家中光景很是惨淡，一半为了丧事，一半为了父亲赋闲。丧事完毕，父亲要到南京谋事，我也要回北京念书，我们便同行。
+const beiying = exports.beiying = `我与父亲不相见已二年余了，我最不能忘记的是他的背影。那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子，我从北京到徐州，打算跟着父亲奔丧回家。到徐州见着父亲，看见满院狼藉的东西，又想起祖母，不禁簌簌地流下眼泪。父亲说，“事已如此，不必难过，好在天无绝人之路！”
+　　回家变卖典质，父亲还了亏空；又借钱办了丧事。这些日子，家中光景很是惨淡，一半为了丧事，一半为了父亲赋闲。丧事完毕，父亲要到南京谋事，我也要回北京念书，我们便同行。
 　　到南京时，有朋友约去游逛，勾留了一日；第二日上午便须渡江到浦口，下午上车北去。父亲因为事忙，本已说定不送我，叫旅馆里一个熟识的茶房陪我同去。他再三嘱咐茶房，甚是仔细。但他终于不放心，怕茶房不妥帖；颇踌躇了一会。其实我那年已二十岁，北京已来往过两三次，是没有甚么要紧的了。他踌躇了一会，终于决定还是自己送我去。我两三回劝他不必去；他只说，“不要紧，他们去不好！”
 　　`;
 
@@ -136,7 +136,7 @@ var _isCJK = __webpack_require__(4);
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 
-function huozi(textSequence, layoutOptions = {
+const defaultOptions = {
   fontSize: 26,
   column: 25,
   row: Infinity,
@@ -147,7 +147,11 @@ function huozi(textSequence, layoutOptions = {
   forceGridAlignment: true,
   westernCharacterFirst: false,
   forceSpaceBetweenCJKAndWestern: false
-}) {
+};
+
+function huozi(textSequence, layoutOptions) {
+
+  layoutOptions = Object.assign({}, defaultOptions, layoutOptions);
 
   const {
     fontSize,
@@ -418,34 +422,66 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const canvas = document.getElementById('app');
 const context = canvas.getContext('2d');
 
-/**
- * Input:
- * {
- *   fontSize: 26,
- *   character: ''
- * }
- */
-const textSequence = _text.mixed.trim().replace('\n', '').split('').map(value => {
-  return {
-    fontSize: 26,
-    character: value
-  };
+function drawText(text, options) {
+  const textSequence = text.trim().replace('\n', '').split('').map(value => {
+    return {
+      fontSize: +options.charFontSize || 18,
+      character: value
+    };
+  });
+
+  const layoutSequence = (0, _index2.default)(textSequence, {
+    fontSize: +options.fontSize || 18,
+    column: +options.column || 35,
+    inlineCompression: options.compress === undefined ? options.compress : true
+  });
+
+  console.log(layoutSequence);
+
+  context.clearRect(0, 0, 800, 600);
+  context.strokeStyle = '#999';
+
+  for (const char of layoutSequence) {
+    context.font = `${char.fontSize}px sans-serif`;
+    context.textBaseline = 'hanging';
+    context.fillText(char.character, char.x, char.y);
+
+    options.stroke && context.strokeRect(char.x, char.y, char.width, char.height);
+  }
+}
+
+/* for demo */
+
+const handler = function (e) {
+  const obj = {};
+  $('#form').serializeArray().map(value => {
+    obj[value.name] = value.value;
+  });
+  drawText(obj['text'], obj);
+};
+
+let id = 0;
+$('#form').on('change input', function (e) {
+  if (id) {
+    clearTimeout(id);
+  }
+  id = setTimeout(handler, 300, e);
 });
 
-const layoutSequence = (0, _index2.default)(textSequence);
-
-console.log(layoutSequence);
-
-context.clearRect(0, 0, 800, 600);
-context.strokeStyle = '#999';
-
-for (const char of layoutSequence) {
-  context.font = `${char.fontSize}px sans-serif`;
-  context.textBaseline = 'hanging';
-  context.fillText(char.character, char.x, char.y);
-
-  context.strokeRect(char.x, char.y, char.width, char.height);
+function fillTextArea(num) {
+  if (num === 1) {
+    textBox.textContent = _text.beiying;
+  } else if (num === 2) {
+    textBox.textContent = _text.lorem;
+  } else {
+    textBox.textContent = _text.mixed;
+  }
+  handler();
 }
+
+window.fillTextArea = fillTextArea;
+
+fillTextArea(1);
 
 /***/ }),
 /* 3 */
