@@ -11,8 +11,8 @@
 <img src="https://img.shields.io/npm/v/huozi.svg?style=flat-square" alt="" />
 <img src="https://img.shields.io/badge/ES-2015%2B-yellow.svg?style=flat-square" alt="" />
 <img src="https://img.shields.io/github/issues/icemic/huozi.js.svg?style=flat-square" alt="" />
-<a href="#License"><img src="https://img.shields.io/badge/license-AGPL--3.0%20or%20Apache--2.0-blue.svg?style=flat-square" alt="" /></a>
-<a href="#License"><img src="https://img.shields.io/badge/demo-online-ff6600.svg?style=flat-square" alt="" /></a>
+<a href="#许可"><img src="https://img.shields.io/badge/license-AGPL--3.0%20or%20Apache--2.0-blue.svg?style=flat-square" alt="" /></a>
+<a href="https://icemic.github.io/huozi.js/"><img src="https://img.shields.io/badge/demo-online-ff6600.svg?style=flat-square" alt="" /></a>
 </p> 
 
 ## 总览
@@ -28,12 +28,12 @@
   - 行末标点超过两个的，避行首规则失效
   - 在前两条规则的基础上，行末标点自第一个需避行尾的标点前断开，进入下一行
 - 行内标点挤压：除破折号等不可挤压的标点外，所有标点均会两两合并为一个em宽度
-- 遇非方块字（英文字母、数字等），按照西文排版方式进行排版。
+- 遇非方块字（英文字母、数字等），按照西文排版方式进行排版。
 - 非方块字两端以补不定长空格的方式凑齐 em 的整数倍宽度，以保证后续内容纵横对齐。
 
-## 演示
+## 演示
 
-
+https://icemic.github.io/huozi.js/
 
 ## 使用
 
