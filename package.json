@@ -1,5 +1,5 @@
 {
-  "name": "huozi.js",
+  "name": "huozi",
   "version": "1.0.0",
   "description": "A simple typography engine for CJK languages, especially designed for game rich-text.",
   "main": "index.js",
