@@ -20,7 +20,8 @@ function drawText(text, options) {
   const layoutSequence = huozi(textSequence, {
     fontSize: +options.fontSize || 18,
     column: +options.column || 35,
-    inlineCompression: options.compress === undefined ? options.compress : true
+    inlineCompression: options.compress === undefined ? options.compress : true,
+    fixLeftQuote: (navigator.language === 'zh-TW') ? false : undefined
   });
 
   console.log(layoutSequence);
@@ -29,7 +30,7 @@ function drawText(text, options) {
   context.strokeStyle = '#999';
 
   for (const char of layoutSequence) {
-    context.font = `${char.fontSize * devicePixelRatio}px sans-serif`;
+    context.font = `${char.fontSize * devicePixelRatio}px "Inconsolata", "LiSongPro", monospace`;
     context.textBaseline = 'hanging';
     context.fillText(char.character, char.x * devicePixelRatio, char.y * devicePixelRatio);
 

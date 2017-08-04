@@ -150,7 +150,8 @@ const defaultOptions = {
   inlineCompression: true,
   forceGridAlignment: true,
   westernCharacterFirst: false,
-  forceSpaceBetweenCJKAndWestern: false
+  forceSpaceBetweenCJKAndWestern: false,
+  fixLeftQuote: undefined
 };
 
 function huozi(textSequence, layoutOptions) {
@@ -166,7 +167,8 @@ function huozi(textSequence, layoutOptions) {
     inlineCompression: FLAG_INLINE_COMPRESSION,
     forceGridAlignment,
     westernCharacterFirst,
-    forceSpaceBetweenCJKAndWestern } = layoutOptions;
+    forceSpaceBetweenCJKAndWestern,
+    fixLeftQuote } = layoutOptions;
 
   let currentX = 0;
   let currentY = 0;
@@ -291,18 +293,22 @@ function huozi(textSequence, layoutOptions) {
       }
     }
 
+    let quoteFix = 0;
+    if (fixLeftQuote === undefined || fixLeftQuote) {
+      quoteFix += !lastIsPunctuation && character === '“' ? charFontSize / 2 : 0;
+    }
+
     // 一些平台上引号量取结果是<0.5em宽，但绘制时却是1em宽，导致错位。下面的代码修正这一问题
     // OS X 无需此修复（FLAG_STDWIDTH === true）
-    let quoteFix = 0;
     if (character === '“' && !FLAG_STDWIDTH) {
-      quoteFix = -charFontSize / 2;
+      quoteFix += -charFontSize / 2;
     } else if (character === '“' && width === charFontSize) {
-      quoteFix = -charFontSize / 2;
+      quoteFix += -charFontSize / 2;
     }
 
     // 确定文字位置并添加到返回数组中
     layoutSequence.push(Object.assign({}, char, {
-      x: currentX + (!lastIsPunctuation && character === '“' ? charFontSize / 2 : 0) + quoteFix,
+      x: currentX + quoteFix,
       y: currentY - offsetY,
       width: width,
       height: charFontSize
@@ -451,7 +457,8 @@ function drawText(text, options) {
   const layoutSequence = (0, _index2.default)(textSequence, {
     fontSize: +options.fontSize || 18,
     column: +options.column || 35,
-    inlineCompression: options.compress === undefined ? options.compress : true
+    inlineCompression: options.compress === undefined ? options.compress : true,
+    fixLeftQuote: navigator.language === 'zh-TW' ? false : undefined
   });
 
   console.log(layoutSequence);
@@ -460,7 +467,7 @@ function drawText(text, options) {
   context.strokeStyle = '#999';
 
   for (const char of layoutSequence) {
-    context.font = `${char.fontSize * devicePixelRatio}px sans-serif`;
+    context.font = `${char.fontSize * devicePixelRatio}px "Inconsolata", "LiSongPro", monospace`;
     context.textBaseline = 'hanging';
     context.fillText(char.character, char.x * devicePixelRatio, char.y * devicePixelRatio);
 
