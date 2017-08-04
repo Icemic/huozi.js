@@ -30,7 +30,7 @@ function drawText(text, options) {
   context.strokeStyle = '#999';
 
   for (const char of layoutSequence) {
-    context.font = `${char.fontSize * devicePixelRatio}px "Inconsolata", "LiSongPro", monospace`;
+    context.font = `${char.fontSize * devicePixelRatio}px sans-serif`;
     context.textBaseline = 'hanging';
     context.fillText(char.character, char.x * devicePixelRatio, char.y * devicePixelRatio);
 
