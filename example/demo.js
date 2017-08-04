@@ -4,6 +4,11 @@ import { beiying, mixed, lorem } from './text';
 const canvas = document.getElementById('app');
 const context = canvas.getContext('2d');
 
+const devicePixelRatio = window.devicePixelRatio;
+
+canvas.width = canvas.width * devicePixelRatio;
+canvas.height = canvas.height * devicePixelRatio;
+
 function drawText(text, options) {
   const textSequence = text.trim().replace('\n', '').split('').map(value => {
     return {
@@ -20,15 +25,15 @@ function drawText(text, options) {
 
   console.log(layoutSequence);
 
-  context.clearRect(0, 0, 800, 600);
+  context.clearRect(0, 0, 800 * devicePixelRatio, 600 * devicePixelRatio);
   context.strokeStyle = '#999';
 
   for (const char of layoutSequence) {
-    context.font = `${char.fontSize}px sans-serif`;
+    context.font = `${char.fontSize * devicePixelRatio}px sans-serif`;
     context.textBaseline = 'hanging';
-    context.fillText(char.character, char.x, char.y);
+    context.fillText(char.character, char.x * devicePixelRatio, char.y * devicePixelRatio);
 
-    options.stroke && context.strokeRect(char.x, char.y, char.width, char.height);
+    options.stroke && context.strokeRect(char.x * devicePixelRatio, char.y * devicePixelRatio, char.width * devicePixelRatio, char.height * devicePixelRatio);
   }
 }
 
