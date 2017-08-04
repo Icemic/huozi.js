@@ -24,6 +24,10 @@ import { isCJK } from './lib/isCJK';
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 
+// 检测中文字符宽度是否等于字号
+context.font = '18px sans-serif';
+const FLAG_STDWIDTH = context.measureText('中').width === 18;
+
 const defaultOptions = {
   fontSize: 26,
   column: 25,
@@ -175,10 +179,19 @@ export default function huozi(textSequence, layoutOptions) {
       }
     }
 
+    // 一些平台上引号量取结果是<0.5em宽，但绘制时却是1em宽，导致错位。下面的代码修正这一问题
+    // OS X 无需此修复（FLAG_STDWIDTH === true）
+    let quoteFix = 0;
+    if (character === '“' && !FLAG_STDWIDTH) {
+      quoteFix = -charFontSize / 2;
+    } else if (character === '“' && width === charFontSize) {
+      quoteFix = -charFontSize / 2;
+    }
+
     // 确定文字位置并添加到返回数组中
     layoutSequence.push({
       ...char,
-      x: currentX + ((!lastIsPunctuation && character === '“') ? charFontSize / 2 : 0),
+      x: currentX + ((!lastIsPunctuation && character === '“') ? charFontSize / 2 : 0) + quoteFix,
       y: currentY - offsetY,
       width: width,
       height: charFontSize

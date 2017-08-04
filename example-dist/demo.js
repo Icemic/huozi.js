@@ -86,11 +86,11 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const beiying = exports.beiying = `我与父亲不相见已二年余了，我最不能忘记的是他的背影。那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子，我从北京到徐州，打算跟着父亲奔丧回家。到徐州见着父亲，看见满院狼藉的东西，又想起祖母，不禁簌簌地流下眼泪。父亲说，“事已如此，不必难过，好在天无绝人之路！”
-　　回家变卖典质，父亲还了亏空；又借钱办了丧事。这些日子，家中光景很是惨淡，一半为了丧事，一半为了父亲赋闲。丧事完毕，父亲要到南京谋事，我也要回北京念书，我们便同行。
-　　到南京时，有朋友约去游逛，勾留了一日；第二日上午便须渡江到浦口，下午上车北去。父亲因为事忙，本已说定不送我，叫旅馆里一个熟识的茶房陪我同去。他再三嘱咐茶房，甚是仔细。但他终于不放心，怕茶房不妥帖；颇踌躇了一会。其实我那年已二十岁，北京已来往过两三次，是没有甚么要紧的了。他踌躇了一会，终于决定还是自己送我去。我两三回劝他不必去；他只说，“不要紧，他们去不好！”
-　　`;
-
+// export const beiying = `我与父亲不相见已二年余了，我最不能忘记的是他的背影。那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子，我从北京到徐州，打算跟着父亲奔丧回家。到徐州见着父亲，看见满院狼藉的东西，又想起祖母，不禁簌簌地流下眼泪。父亲说，“事已如此，不必难过，好在天无绝人之路！”
+// 　　回家变卖典质，父亲还了亏空；又借钱办了丧事。这些日子，家中光景很是惨淡，一半为了丧事，一半为了父亲赋闲。丧事完毕，父亲要到南京谋事，我也要回北京念书，我们便同行。
+// 　　到南京时，有朋友约去游逛，勾留了一日；第二日上午便须渡江到浦口，下午上车北去。父亲因为事忙，本已说定不送我，叫旅馆里一个熟识的茶房陪我同去。他再三嘱咐茶房，甚是仔细。但他终于不放心，怕茶房不妥帖；颇踌躇了一会。其实我那年已二十岁，北京已来往过两三次，是没有甚么要紧的了。他踌躇了一会，终于决定还是自己送我去。我两三回劝他不必去；他只说，“不要紧，他们去不好！”
+// 　　`;
+const beiying = exports.beiying = '啊“啊';
 const mixed = exports.mixed = `
 如同大部分北海道地区的地名由来，“札幌”这一地名也是起源于北海道当地的原住民阿伊努族的语言阿伊努语。关于札幌的名称起源有二种说法，一说认为札幌（さっぽろ）起源于阿伊努语中的“sat-poro-pet/サッ・ポロ・ペッ”，意指“干渴的大河”；另一说则认为起源于阿伊努语中的“sar-poro-pet/サリ・ポロ・ペッ”，意思是完全与前者颠倒的“有大片湿地的河流”。`;
 
@@ -135,6 +135,10 @@ var _isCJK = __webpack_require__(4);
 
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
+
+// 检测中文字符宽度是否等于字号
+context.font = '18px sans-serif';
+const FLAG_STDWIDTH = context.measureText('中').width === 18;
 
 const defaultOptions = {
   fontSize: 26,
@@ -287,9 +291,18 @@ function huozi(textSequence, layoutOptions) {
       }
     }
 
+    // 一些平台上引号量取结果是<0.5em宽，但绘制时却是1em宽，导致错位。下面的代码修正这一问题
+    // OS X 无需此修复（FLAG_STDWIDTH === true）
+    let quoteFix = 0;
+    if (character === '“' && !FLAG_STDWIDTH) {
+      quoteFix = -charFontSize / 2;
+    } else if (character === '“' && width === charFontSize) {
+      quoteFix = -charFontSize / 2;
+    }
+
     // 确定文字位置并添加到返回数组中
     layoutSequence.push(Object.assign({}, char, {
-      x: currentX + (!lastIsPunctuation && character === '“' ? charFontSize / 2 : 0),
+      x: currentX + (!lastIsPunctuation && character === '“' ? charFontSize / 2 : 0) + quoteFix,
       y: currentY - offsetY,
       width: width,
       height: charFontSize
@@ -516,9 +529,9 @@ Object.defineProperty(exports, "__esModule", {
 
 const DIANHAO = exports.DIANHAO = `。，、．：；！‼？⁇`;
 const BIAOHAO = exports.BIAOHAO = `「」『』“”‘’（）【】〖〗〔〕［］｛｝⸺—…●•–～~～～·﹏《》〈〉＿/／`;
-const BIAODIAN = exports.BIAODIAN = `${BIAOHAO}${DIANHAO}`;
-const BIAODIANVALIDATEND = exports.BIAODIANVALIDATEND = `。，、．：；！‼？⁇」』”’）】〗〕］｝》〉`;
-const BIAODIANVALIDATSTART = exports.BIAODIANVALIDATSTART = `「『“‘（【〖〔［｛《〈`;
+const BIAODIAN = exports.BIAODIAN = `${BIAOHAO}${DIANHAO} `;
+const BIAODIANVALIDATEND = exports.BIAODIANVALIDATEND = `。，、．：；！‼？⁇」』”’）】〗〕］｝》〉 `;
+const BIAODIANVALIDATSTART = exports.BIAODIANVALIDATSTART = `「『“‘（【〖〔［｛《〈 `;
 const INCOMPRESSIBLE = exports.INCOMPRESSIBLE = '‼⁇⸺—';
 const COMPRESSLEFT = exports.COMPRESSLEFT = '「『“‘（【〖〔［｛《〈';
 
