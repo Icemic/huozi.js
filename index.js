@@ -38,7 +38,8 @@ const defaultOptions = {
   inlineCompression: true,
   forceGridAlignment: true,
   westernCharacterFirst: false,
-  forceSpaceBetweenCJKAndWestern: false
+  forceSpaceBetweenCJKAndWestern: false,
+  fixLeftQuote: undefined
 };
 
 export default function huozi(textSequence, layoutOptions) {
@@ -54,7 +55,8 @@ export default function huozi(textSequence, layoutOptions) {
     inlineCompression: FLAG_INLINE_COMPRESSION,
     forceGridAlignment,
     westernCharacterFirst,
-    forceSpaceBetweenCJKAndWestern } = layoutOptions;
+    forceSpaceBetweenCJKAndWestern,
+    fixLeftQuote } = layoutOptions;
 
   let currentX = 0;
   let currentY = 0;
@@ -179,19 +181,24 @@ export default function huozi(textSequence, layoutOptions) {
       }
     }
 
+
+    let quoteFix = 0;
+    if (fixLeftQuote === undefined || fixLeftQuote) {
+      quoteFix += ((!lastIsPunctuation && character === '“') ? charFontSize / 2 : 0);
+    }
+
     // 一些平台上引号量取结果是<0.5em宽，但绘制时却是1em宽，导致错位。下面的代码修正这一问题
     // OS X 无需此修复（FLAG_STDWIDTH === true）
-    let quoteFix = 0;
     if (character === '“' && !FLAG_STDWIDTH) {
-      quoteFix = -charFontSize / 2;
+      quoteFix += -charFontSize / 2;
     } else if (character === '“' && width === charFontSize) {
-      quoteFix = -charFontSize / 2;
+      quoteFix += -charFontSize / 2;
     }
 
     // 确定文字位置并添加到返回数组中
     layoutSequence.push({
       ...char,
-      x: currentX + ((!lastIsPunctuation && character === '“') ? charFontSize / 2 : 0) + quoteFix,
+      x: currentX + quoteFix,
       y: currentY - offsetY,
       width: width,
       height: charFontSize

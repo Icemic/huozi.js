@@ -112,7 +112,9 @@ function huozi(textSequence, layoutOptions = {
   // 西文优先
   westernCharacterFirst: false,
   // 若纵横对齐导致无空格间隔，则强制在两边加入至少 1/4em 宽空格
-  forceSpaceBetweenCJKAndWestern: false
+  forceSpaceBetweenCJKAndWestern: false,
+  // 强制指定是否进行左全角引号的位置修正，默认为自动探测（依系统、浏览器和字体，存在失误可能）
+  fixLeftQuote: undefined
 })
 ```
 
