@@ -95,8 +95,8 @@ for (const char of layoutSequence) {
 function huozi(textSequence, layoutOptions = {
   // 指定字体，支持任何合法的 CSS font-family 值（包括使用 @font-face 导入的），默认为黑体/无衬线字体
   fontFamily: 'sans-serif',
-  // 排版用字号（即一个em多宽，与 textSequence 中的 fontSize 不同）
-  fontSize: 26,
+  // 排版网格宽度（即一个em多宽，与 textSequence 中的 fontSize 不同）
+  gridSize: 26,
   // 每行字数
   column: 25,
   // 行数
@@ -115,8 +115,8 @@ function huozi(textSequence, layoutOptions = {
   westernCharacterFirst: false,
   // 若纵横对齐导致无空格间隔，则强制在两边加入至少 1/4em 宽空格
   forceSpaceBetweenCJKAndWestern: false,
-  // 强制指定是否进行左全角引号的位置修正，默认为自动探测（依系统、浏览器和字体，存在失误可能）
-  fixLeftQuote: undefined
+  // 是否进行左全角引号的位置修正
+  fixLeftQuote: true
 })
 ```
 

@@ -18,7 +18,7 @@ function drawText(text, options) {
   });
 
   const layoutSequence = huozi(textSequence, {
-    fontSize: +options.fontSize || 18,
+    gridSize: +options.fontSize || 18,
     column: +options.column || 35,
     inlineCompression: options.compress === undefined ? options.compress : true,
     fixLeftQuote: (navigator.language === 'zh-TW') ? false : undefined
