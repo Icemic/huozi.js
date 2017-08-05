@@ -106,7 +106,7 @@ export default function huozi(textSequence, layoutOptions, onSequence) {
       lastIsPunctuation = false;
     }
 
-    if (/[\n “”‘’]/.test(character)) {
+    if (/[ “”‘’]/.test(character)) {
       if (lastIsWesternChar) {
         westernTextCache.push(char);
         continue;
@@ -161,6 +161,11 @@ export default function huozi(textSequence, layoutOptions, onSequence) {
       if (!BIAODIANVALIDATEND.includes(character) || BIAODIANVALIDATSTART.includes(character) || needForceWrap) {
         lineWrap();
       }
+    }
+
+    if (character === '\n') {
+      lineWrap();
+      continue;
     }
 
     // 测量文字宽度

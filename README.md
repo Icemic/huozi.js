@@ -47,7 +47,7 @@ import huozi from 'huozi';
 const canvas = document.getElementById('app');
 const context = canvas.getContext('2d');
 
-const textSequence = '需要排版的文字内容'.split('').map(value => {
+const textSequence = '需要排版的文字内容'.replace(/\r\n/g, '\n').split('').map(value => {
     return {
       fontSize: 26,
       character: value

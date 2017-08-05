@@ -10,7 +10,7 @@ canvas.width = canvas.width * devicePixelRatio;
 canvas.height = canvas.height * devicePixelRatio;
 
 function drawText(text, options) {
-  const textSequence = text.trim().replace('\n', '').split('').map(value => {
+  const textSequence = text.replace(/\r\n/g, '\n').trim().split('').map(value => {
     return {
       fontSize: +options.charFontSize || 18,
       character: value
