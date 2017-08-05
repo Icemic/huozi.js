@@ -29,6 +29,7 @@ context.font = '18px sans-serif';
 const FLAG_STDWIDTH = context.measureText('中').width === 18;
 
 const defaultOptions = {
+  fontFamily: 'sans-serif',
   fontSize: 26,
   column: 25,
   row: Infinity,
@@ -47,6 +48,7 @@ export default function huozi(textSequence, layoutOptions) {
   layoutOptions = Object.assign({}, defaultOptions, layoutOptions);
 
   const {
+    fontFamily,
     fontSize,
     column,
     row,
@@ -160,7 +162,7 @@ export default function huozi(textSequence, layoutOptions) {
     }
 
     // 测量文字宽度
-    context.font = `${charFontSize}px sans-serif`;
+    context.font = `${charFontSize}px ${fontFamily}`;
     const width = context.measureText(character).width;
 
     // 在前后字号不一致的时候施行强制纵横对齐
@@ -303,7 +305,7 @@ function processWesternText(textSequence, { fontSize, yInterval, letterSpacing }
       wordChar = [];
 
     } else {
-      context.font = `${charFontSize}px sans-serif`;
+      context.font = `${charFontSize}px ${fontFamily}`;
       const width = context.measureText(character).width;
 
       word += character;

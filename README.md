@@ -93,6 +93,8 @@ for (const char of layoutSequence) {
 
 ```js
 function huozi(textSequence, layoutOptions = {
+  // 指定字体，支持任何合法的 CSS font-family 值（包括使用 @font-face 导入的），默认为黑体/无衬线字体
+  fontFamily: 'sans-serif',
   // 排版用字号（即一个em多宽，与 textSequence 中的 fontSize 不同）
   fontSize: 26,
   // 每行字数
