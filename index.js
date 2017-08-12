@@ -190,10 +190,10 @@ export default function huozi(textSequence, layoutOptions, onSequence) {
       }
     }
 
-
+    // 这里假设引号永远是在 em 格左侧的。fix 指修复一些并非在左侧时的情况。
     let quoteFix = 0;
+    quoteFix += ((!lastIsPunctuation && character === '“') ? charFontSize / 2 : 0);
     if (fixLeftQuote) {
-      quoteFix += ((!lastIsPunctuation && character === '“') ? charFontSize / 2 : 0);
       // 一些平台上引号量取结果是<0.5em宽，但绘制时却是1em宽，导致错位。下面的代码修正这一问题
       // OS X 无需此修复（FLAG_STDWIDTH === true）
       if (character === '“' && !FLAG_STDWIDTH) {
