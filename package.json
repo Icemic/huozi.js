@@ -1,6 +1,6 @@
 {
   "name": "huozi",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple typography engine for CJK languages, especially designed for game rich-text.",
   "main": "index.js",
   "scripts": {
