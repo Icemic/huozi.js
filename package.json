@@ -2,10 +2,13 @@
   "name": "huozi",
   "version": "1.0.7",
   "description": "A simple typography engine for CJK languages, especially designed for game rich-text.",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.example.js --hot --host 0.0.0.0 --port 8000 --devtool source-map",
     "publish-demo": "webpack --config webpack.config.example.js -p",
+    "prebuild": "rm -rf ./dist",
+    "build": "babel . --ignore node_modules,example --out-dir dist",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +33,7 @@
   },
   "homepage": "https://github.com/Icemic/huozi.js#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
