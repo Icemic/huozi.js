@@ -164,7 +164,7 @@ export default function huozi(textSequence, layoutOptions, onSequence) {
     }
 
     if (character === '\n') {
-      lineWrap();
+      !isLineEnd && lineWrap();
       continue;
     }
 
