@@ -164,7 +164,7 @@ export default function huozi(textSequence, layoutOptions, onSequence) {
     }
 
     if (character === '\n') {
-      lineWrap();
+      !isLineEnd && lineWrap();
       continue;
     }
 
@@ -184,7 +184,7 @@ export default function huozi(textSequence, layoutOptions, onSequence) {
       offsetX = ((1 + Math.ceil(offsetX * 2 / (gridSize + xInterval))) * (gridSize + xInterval) - charFontSize) / 2;
       currentX += offsetX;
 
-      if (currentColumn >= column) {
+      if (currentColumn >= column && !BIAODIANVALIDATEND.includes(character)) {
         lineWrap();
         doubleX = true;
       }
