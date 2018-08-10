@@ -96,6 +96,8 @@ const mixed = exports.mixed = `
 
 const lorem = exports.lorem = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
 
+const emoji = exports.emoji = '你可以看到\u2139\uFE0F绘制出来的emoji🌟与文本框中的样式一致。它也支持特殊的控制字符，如设置肤色👨\u{1F3FD}或将多个emoji拼合在一起的样式。\u{1F469}\u200D\u{1F469}\u200D\u{1F467}，就像这样。';
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -276,7 +278,7 @@ function huozi(textSequence, layoutOptions, onSequence) {
     }
 
     if (character === '\n') {
-      lineWrap();
+      !isLineEnd && lineWrap();
       continue;
     }
 
@@ -296,15 +298,16 @@ function huozi(textSequence, layoutOptions, onSequence) {
       offsetX = ((1 + Math.ceil(offsetX * 2 / (gridSize + xInterval))) * (gridSize + xInterval) - charFontSize) / 2;
       currentX += offsetX;
 
-      if (currentColumn >= column) {
+      if (currentColumn >= column && !_code.BIAODIANVALIDATEND.includes(character)) {
         lineWrap();
         doubleX = true;
       }
     }
 
+    // 这里假设引号永远是在 em 格左侧的。fix 指修复一些并非在左侧时的情况。
     let quoteFix = 0;
+    quoteFix += !lastIsPunctuation && character === '“' ? charFontSize / 2 : 0;
     if (fixLeftQuote) {
-      quoteFix += !lastIsPunctuation && character === '“' ? charFontSize / 2 : 0;
       // 一些平台上引号量取结果是<0.5em宽，但绘制时却是1em宽，导致错位。下面的代码修正这一问题
       // OS X 无需此修复（FLAG_STDWIDTH === true）
       if (character === '“' && !FLAG_STDWIDTH) {
@@ -459,8 +462,38 @@ const devicePixelRatio = window.devicePixelRatio;
 canvas.width = canvas.width * devicePixelRatio;
 canvas.height = canvas.height * devicePixelRatio;
 
+const regexAstralSymbols = /([\uD800-\uDBFF][\uDC00-\uDFFF])/;
+const specialForEmoji = ['\uFE0E', '\uFE0F', '\u200D', '\u{1F3FB}', '\u{1F3FC}', '\u{1F3FD}', '\u{1F3FE}', '\u{1F3FF}'];
+
+function processEmoji(arr) {
+  const retArr = [];
+  let pendingChar = '';
+  let lastIsSpecialForEmoji = false;
+  for (const char of arr) {
+    if (pendingChar && specialForEmoji.includes(char)) {
+      lastIsSpecialForEmoji = '\u200D' === char;
+      pendingChar += char;
+    } else if (pendingChar && lastIsSpecialForEmoji) {
+      lastIsSpecialForEmoji = false;
+      pendingChar += char;
+    } else if (pendingChar) {
+      retArr.push(pendingChar);
+      retArr.push(char);
+      pendingChar = '';
+    } else if (specialForEmoji.includes(char)) {
+      pendingChar = retArr.pop() + char;
+    } else if (regexAstralSymbols.test(char)) {
+      pendingChar = char;
+    } else {
+      retArr.push(char);
+    }
+  }
+
+  return retArr;
+}
+
 function drawText(text, options) {
-  const textSequence = text.replace(/\r\n/g, '\n').trim().split('').map(value => {
+  const textSequence = processEmoji(text.replace(/\r\n/g, '\n').trim()).map(value => {
     return {
       fontSize: +options.charFontSize || 18,
       character: value
@@ -511,8 +544,10 @@ function fillTextArea(num) {
     textBox.textContent = _text.beiying;
   } else if (num === 2) {
     textBox.textContent = _text.lorem;
-  } else {
+  } else if (num === 3) {
     textBox.textContent = _text.mixed;
+  } else {
+    textBox.textContent = _text.emoji;
   }
   handler();
 }
