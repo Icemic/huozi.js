@@ -1,14 +1,12 @@
 {
   "sourceMaps": true,
+  "comments": false,
   "presets": [
     [
       "env",
       {
-        "targets": {
-          "browsers": [
-            "last 2 chrome versions"
-          ]
-        }
+        "modules": false,
+        "useBuiltIns": "usage"
       }
     ]
   ],
