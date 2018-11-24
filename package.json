@@ -27,7 +27,7 @@
     "game"
   ],
   "author": "Icemic Jia <bingfeng.web@gmail.com>",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Icemic/huozi.js/issues"
   },

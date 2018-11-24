@@ -126,9 +126,16 @@ function huozi(textSequence, layoutOptions = {
 
 ## 许可
 
-本程序根据使用目的采用双授权的方式，你可以根据如下条款选择适合你的许可协议：
+Copyright 2017-present Icemic Jia
 
-- 对于全部的使用目的，均可选择 GNU Affero General Public License 3.0。
-- 对于非商业目的的使用，可选择 Apache License 2.0。此处非商业目的的定义和区分方法与 Creative Commons BY-NC 4.0 International 中的相关条目一致。
-- 特别地，当用户将本程序与 AVG.js，或更具体地，avg-core 库同时使用时，无论用于商业或非商业，均可选择 Apache License 2.0。关于 AVG.js 的详情，请访问：https://github.com/avgjs/avg-core
-- 特别地，当用户将本程序与 [pixi-richtext](https://github.com/avgjs/pixi-richtext) 库同时使用时，无论用于商业或非商业，均可选择 Apache License 2.0。
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
