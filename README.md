@@ -11,7 +11,7 @@
 <img src="https://img.shields.io/npm/v/huozi.svg?style=flat-square" alt="" />
 <img src="https://img.shields.io/badge/ES-2015%2B-yellow.svg?style=flat-square" alt="" />
 <img src="https://img.shields.io/github/issues/icemic/huozi.js.svg?style=flat-square" alt="" />
-<a href="#许可"><img src="https://img.shields.io/badge/license-AGPL--3.0%20or%20Apache--2.0-blue.svg?style=flat-square" alt="" /></a>
+<a href="#许可"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg?style=flat-square" alt="" /></a>
 <a href="https://icemic.github.io/huozi.js/"><img src="https://img.shields.io/badge/demo-online-ff6600.svg?style=flat-square" alt="" /></a>
 </p> 
 
@@ -71,7 +71,7 @@ for (const char of layoutSequence) {
 
 ```js
 [{
-  character: String,  // 单个字符
+  character: String,  // 单个字符
   fontSize: Number    // 该字符的字号
 }]
 ```
